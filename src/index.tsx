@@ -1,15 +1,15 @@
 import { RecoilRoot } from "recoil";
 import { render } from 'react-dom';
+import { startup } from "./engine";
 import bridge from '@vkontakte/vk-bridge';
 import App from "./App";
-import { startup } from "./engine";
 
-startup((params) => {
+startup(() => {
+    const [app] = document.getElementsByTagName('app');
     render(
         <RecoilRoot>
             <App />
         </RecoilRoot>,
-        document.getElementById('app'),
-        () => { bridge.send("VKWebAppInit"); }
+        app, () => { bridge.send("VKWebAppInit"); }
     )
 })
